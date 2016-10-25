@@ -14,6 +14,21 @@ TopDownGame.Game.prototype = {
     this.backgroundlayer = this.map.createLayer('background');
     this.blockedLayer = this.map.createLayer('blockedLayer');
 
+    //create yellow flowers group
+    this.yellowFlowers = this.game.add.group();
+    for (var i = 0; i < 5; i++)
+    {
+        this.yellowFlowers.create(this.game.rnd.integerInRange(0, 400), this.game.rnd.integerInRange(100, 300), 'yellowFlower', 0);
+    }
+
+    this.yellowFlowers.callAll('scale.setTo', 'scale', .5,.5);
+    this.yellowFlowers.callAll('animations.add', 'animations', 'dance', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, false);
+
+    //create purple flower sprite
+    this.purpleFlower = this.game.add.sprite(150, 240, 'purpleFlower');
+    this.purpleFlower.animations.add('dance', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, false);
+    this.purpleFlower.scale.setTo(.5,.5)
+
     //create fishing group
     this.fishingZones = [];
     for(var i = 0; i<this.map.objects.objectsLayer.length; i++){
@@ -85,8 +100,13 @@ TopDownGame.Game.prototype = {
       for(var x = 0; x<this.fishingZones.length; x++){
         if(this.fishingZones[x].contains(this.player.x+this.player.width/2, this.player.y+this.player.height/2)) {
           console.log('fishing '+ this.fishingZones[x].name);
+          this.makeFlowersDance();
         }
       }
     }
   },
+  makeFlowersDance: function(){
+    this.yellowFlowers.getRandom().animations.play('dance')
+    this.purpleFlower.animations.play('dance');
+  }
 }
