@@ -13,6 +13,8 @@ TopDownGame.Game.prototype = {
     //create layers
     this.backgroundlayer = this.map.createLayer('background');
     this.blockedLayer = this.map.createLayer('blockedLayer');
+    console.log(this.blockedLayer);
+    console.log(this.blockedLayer._results);
 
     //create yellow flowers group
     this.yellowFlowers = this.game.add.group();
@@ -35,7 +37,6 @@ TopDownGame.Game.prototype = {
       var zone = this.createFishingTiles(this.map.objects.objectsLayer[i]);
       this.fishingZones.push(zone);
     }
-    console.log(this.fishingZones);
     //collision on blockedLayer
     this.map.setCollisionBetween(1, 2000, true, 'blockedLayer');
 
@@ -101,6 +102,11 @@ TopDownGame.Game.prototype = {
         if(this.fishingZones[x].contains(this.player.x+this.player.width/2, this.player.y+this.player.height/2)) {
           console.log('fishing '+ this.fishingZones[x].name);
           this.makeFlowersDance();
+          if(this.chanceToCatch()){
+            console.log('caught a fish!');
+          }else{
+            console.log('no fish, sorry man');
+          }
         }
       }
     }
@@ -108,5 +114,13 @@ TopDownGame.Game.prototype = {
   makeFlowersDance: function(){
     this.yellowFlowers.getRandom().animations.play('dance')
     this.purpleFlower.animations.play('dance');
+  },
+  chanceToCatch: function(){
+    var num = this.game.rnd.integerInRange(0, 1);
+    if(num == 0){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
