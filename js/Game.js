@@ -15,6 +15,7 @@ TopDownGame.Game.prototype = {
     this.blockedLayer = this.map.createLayer('blockedLayer');
     console.log(this.blockedLayer);
     console.log(this.blockedLayer._results);
+    console.log(fishJSON);
 
     //create yellow flowers group
     this.yellowFlowers = this.game.add.group();
@@ -103,7 +104,8 @@ TopDownGame.Game.prototype = {
           console.log('fishing '+ this.fishingZones[x].name);
           this.makeFlowersDance();
           if(this.chanceToCatch()){
-            console.log('caught a fish!');
+            var fish = this.getFish(this.fishingZones[x].name);
+            console.log('caught a '+fish);
           }else{
             console.log('no fish, sorry man');
           }
@@ -122,5 +124,11 @@ TopDownGame.Game.prototype = {
     } else {
       return false;
     }
+  },
+  getFish: function (zone){
+    //zone is working as a way to get into the object
+      zone = zone.toLowerCase();
+      console.log(fishJSON.zone[zone]);
+    return fishJSON.zone[zone].fish[1].name;
   }
 }

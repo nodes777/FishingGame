@@ -1,0 +1,47 @@
+var fishJSON = {
+  "zone":
+    {
+      "beachfront": {
+      	"fish": [
+        {
+          "name": "Shark",
+          "size": 17,
+          "price": 1000
+        },
+        {
+          "name": "Pufferfish",
+          "size": 7,
+          "price": 500
+        }
+      ]
+      },
+      "lakefront": {
+      		"fish": [
+	        {
+	          "name": "Catfish",
+	          "size": 4,
+	          "price": 100
+	        },
+	        {
+	          "name": "Large Mouth Bass",
+	          "size": 5,
+	          "price": 200
+	        }
+	      ]
+      },
+      "riverfront": {
+      		"fish": [
+	        {
+	          "name": "Rainbow Trout",
+	          "size": 4,
+	          "price": 100
+	        },
+	        {
+	          "name": "Brown Trout",
+	          "size": 6,
+	          "price": 400
+	        }
+      	]
+      }
+    }
+}
