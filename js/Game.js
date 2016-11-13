@@ -46,6 +46,9 @@ TopDownGame.Game.prototype = {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    //Get the Hour and draw it in the top left corner
+    this.getTime();
+
     //create player
     this.player = this.game.add.sprite(100, 300, 'player');
     this.player.animations.add('right', [0, 1, 2, 3], 10, true);
@@ -103,8 +106,10 @@ TopDownGame.Game.prototype = {
   },
   fishCheck:  function (){
       for(var x = 0; x<this.fishingZones.length; x++){
+        //if the center of the player is in range
         if(this.fishingZones[x].contains(this.player.x+this.player.width/2, this.player.y+this.player.height/2)) {
           console.log('fishing '+ this.fishingZones[x].name);
+
           if(this.chanceToCatch()){
             var fish = this.getFish(this.fishingZones[x].name);
             this.makeFlowersDance();
@@ -114,6 +119,21 @@ TopDownGame.Game.prototype = {
           }
         }
       }
+    },
+    getTime: function(){
+    var d = new Date();
+    var hour = d.getHours();
+    var meridiem = "am"
+    if(hour>12){
+      hour = hour-12;
+      meridiem = "pm"
+    }
+    hour = hour+meridiem;
+
+    this.style = { font: "12px Arial", fill: "white", wordWrap: true, wordWrapWidth: 100, align: "center", backgroundColor: "black" };
+
+    text = this.game.add.text(0, 0, hour, this.style);
+    text.fixedToCamera = true;
     },
   makeFlowersDance: function(){
     this.yellowFlowers.getRandom().animations.play('dance')
