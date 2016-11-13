@@ -60,6 +60,8 @@ TopDownGame.Game.prototype = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.spacebar = this.game.input.keyboard.addKey(32);
 
+    this.spacebar.onDown.add(this.fishCheck, this);
+
   },
   createFishingTiles: function(obj) {
     var fishingTiles = new Phaser.Rectangle(obj.x, obj.y, obj.width, obj.height);
@@ -98,21 +100,21 @@ TopDownGame.Game.prototype = {
       this.player.animations.stop();
     }
 
-    if (this.spacebar.isDown){
+  },
+  fishCheck:  function (){
       for(var x = 0; x<this.fishingZones.length; x++){
         if(this.fishingZones[x].contains(this.player.x+this.player.width/2, this.player.y+this.player.height/2)) {
           console.log('fishing '+ this.fishingZones[x].name);
-          this.makeFlowersDance();
           if(this.chanceToCatch()){
             var fish = this.getFish(this.fishingZones[x].name);
+            this.makeFlowersDance();
             console.log('caught a '+fish);
           }else{
             console.log('no fish, sorry man');
           }
         }
       }
-    }
-  },
+    },
   makeFlowersDance: function(){
     this.yellowFlowers.getRandom().animations.play('dance')
     this.purpleFlower.animations.play('dance');
@@ -128,7 +130,6 @@ TopDownGame.Game.prototype = {
   getFish: function (zone){
     //zone is working as a way to get into the object
       zone = zone.toLowerCase();
-      console.log(fishJSON.zone[zone]);
     return fishJSON.zone[zone].fish[1].name;
   }
 }
