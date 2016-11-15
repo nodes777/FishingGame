@@ -52,6 +52,8 @@ TopDownGame.Game.prototype = {
     this.getTimeText(this.hour);
     //Get Time of Day: Morning, Day or Night
     this.timeOfDay = this.getTimeOfDay(this.hour);
+    //for testing only
+    this.timeOfDay = "morning";
     console.log(this.timeOfDay);
 
 
@@ -120,6 +122,7 @@ TopDownGame.Game.prototype = {
             var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
             this.makeFlowersDance();
             console.log('caught a '+fish);
+            this.displayFish(fish);
           }else{
             console.log('no fish, sorry man');
           }
@@ -170,10 +173,18 @@ TopDownGame.Game.prototype = {
     }
   },
   getFish: function (zone, timeOfDay){
-    //zone is working as a way to get into the object
+    //zone and timeOfDay are working as a way to get into the object
       zone = zone.toLowerCase();
       console.log(fishJSON.zone[zone].time[timeOfDay]);
-
     return fishJSON.zone[zone].time[timeOfDay].fish[1].name;
+  },
+  displayFish: function(fish){
+    var sprite = fish.toString().toLowerCase();
+    this.fish = this.game.add.sprite(this.player.x, this.player.y, sprite);
+    this.fish.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
+
+          this.fish.animations.play('wiggle', 8, false, true);
+
+
   }
 }
