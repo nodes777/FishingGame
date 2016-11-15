@@ -13,8 +13,8 @@ TopDownGame.Game.prototype = {
     //create layers
     this.backgroundlayer = this.map.createLayer('background');
     this.blockedLayer = this.map.createLayer('blockedLayer');
-    console.log(this.blockedLayer);
-    console.log(this.blockedLayer._results);
+    //console.log(this.blockedLayer);
+    //console.log(this.blockedLayer._results);
     console.log(fishJSON);
 
     //create yellow flowers group
@@ -46,8 +46,14 @@ TopDownGame.Game.prototype = {
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    //Get the Hour and draw it in the top left corner
-    this.getTime();
+    //Get the Hour
+    this.hour = this.getTime();
+    //and draw it in the top left corner
+    this.getTimeText(this.hour);
+    //Get Time of Day: Morning, Day or Night
+    this.timeOfDay = this.getTimeOfDay(this.hour);
+    console.log(this.timeOfDay);
+
 
     //create player
     this.player = this.game.add.sprite(100, 300, 'player');
@@ -111,7 +117,7 @@ TopDownGame.Game.prototype = {
           console.log('fishing '+ this.fishingZones[x].name);
 
           if(this.chanceToCatch()){
-            var fish = this.getFish(this.fishingZones[x].name);
+            var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
             this.makeFlowersDance();
             console.log('caught a '+fish);
           }else{
@@ -123,6 +129,10 @@ TopDownGame.Game.prototype = {
     getTime: function(){
     var d = new Date();
     var hour = d.getHours();
+
+    return hour;
+    },
+    getTimeText: function(hour){
     var meridiem = "am"
     if(hour>12){
       hour = hour-12;
@@ -134,6 +144,18 @@ TopDownGame.Game.prototype = {
 
     text = this.game.add.text(0, 0, hour, this.style);
     text.fixedToCamera = true;
+    },
+    getTimeOfDay: function(hour){
+      console.log(hour);
+      if(hour<5){
+        return "night";
+      } else if( hour>=5 && hour < 11){
+        return "morning";
+      } else if( hour>=11 && hour < 19){
+        return "day";
+      } else if( hour>=19 && hour< 24){
+        return "night";
+      }
     },
   makeFlowersDance: function(){
     this.yellowFlowers.getRandom().animations.play('dance')
@@ -147,9 +169,11 @@ TopDownGame.Game.prototype = {
       return false;
     }
   },
-  getFish: function (zone){
+  getFish: function (zone, timeOfDay){
     //zone is working as a way to get into the object
       zone = zone.toLowerCase();
-    return fishJSON.zone[zone].fish[1].name;
+      console.log(fishJSON.zone[zone].time[timeOfDay]);
+
+    return fishJSON.zone[zone].time[timeOfDay].fish[1].name;
   }
 }
