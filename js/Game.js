@@ -56,6 +56,9 @@ TopDownGame.Game.prototype = {
     this.timeOfDay = "morning";
     console.log(this.timeOfDay);
 
+    //create inventory
+    this.inventory = [];
+
 
     //create player
     this.player = this.game.add.sprite(100, 300, 'player');
@@ -118,11 +121,17 @@ TopDownGame.Game.prototype = {
         if(this.fishingZones[x].contains(this.player.x+this.player.width/2, this.player.y+this.player.height/2)) {
           console.log('fishing '+ this.fishingZones[x].name);
 
+          //if you catch a fish
           if(this.chanceToCatch()){
+            //get a fish from the zone and time of day
             var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
             this.makeFlowersDance();
-            console.log('caught a '+fish);
+            console.log('caught a '+fish.name);
+            //show the fish on screen above player
             this.displayFish(fish);
+            //add a copy of the fish to player's inventory
+            var fishCopy = new this.Fish(fish.name, fish.size, fish.price);
+            this.addFishToInventory(fishCopy);
           }else{
             console.log('no fish, sorry man');
           }
@@ -176,15 +185,34 @@ TopDownGame.Game.prototype = {
     //zone and timeOfDay are working as a way to get into the object
       zone = zone.toLowerCase();
       console.log(fishJSON.zone[zone].time[timeOfDay]);
-    return fishJSON.zone[zone].time[timeOfDay].fish[1].name;
+    return fishJSON.zone[zone].time[timeOfDay].fish[1];
   },
   displayFish: function(fish){
-    var sprite = fish.toString().toLowerCase();
-    this.fish = this.game.add.sprite(this.player.x, this.player.y, sprite);
+    var sprite = fish.name.toString().toLowerCase();
+    this.fish = this.game.add.sprite(this.player.x+8, this.player.y-16, sprite);
     this.fish.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
 
           this.fish.animations.play('wiggle', 8, false, true);
 
-
+  },
+  addFishToInventory: function(fish){
+    this.inventory.push(fish);
+    console.log(this.inventory);
+    this.updateInventoryDisplay();
+  },
+  Fish: function(name, size, value){
+    this.name = name;
+    this.size = size;
+    this.value = value;
+  },
+  updateInventoryDisplay: function(){
+    //for every item in the inventory
+    for(var i = 0; i< this.inventory.length; i++){
+        //get the sprite image from the name in the inventory
+        var sprite = this.inventory[i].name.toString().toLowerCase();
+        // add the sprite
+        var invFish = this.game.add.sprite(350, 10*i, sprite);
+        invFish.fixedToCamera = true
+      }
   }
 }
