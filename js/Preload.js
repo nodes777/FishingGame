@@ -23,6 +23,10 @@ TopDownGame.Preload.prototype = {
     this.load.spritesheet('ray', 'assets/images/fish/beachfront/ray.png', 16, 16);
     this.load.spritesheet('brown trout', 'assets/images/fish/riverfront/brownTrout.png', 16, 16);
     this.load.spritesheet('blue gill', 'assets/images/fish/lakefront/blueGill.png', 16, 16);
+    this.load.spritesheet('pufferfish', 'assets/images/fish/beachfront/pufferfish.png', 32, 32);
+    this.load.spritesheet('panfish', 'assets/images/fish/lakefront/Panfish.png', 32, 32);
+    this.load.spritesheet('minnow', 'assets/images/fish/riverfront/Minnow.png', 32, 32);
+    this.load.spritesheet('sauger', 'assets/images/fish/riverfront/Sauger.png', 32, 32);
   },
   create: function() {
     this.state.start('Game');

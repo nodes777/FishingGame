@@ -53,7 +53,7 @@ TopDownGame.Game.prototype = {
     //Get Time of Day: Morning, Day or Night
     this.timeOfDay = this.getTimeOfDay(this.hour);
     //for testing only
-    this.timeOfDay = "morning";
+    this.timeOfDay = "day";
     console.log(this.timeOfDay);
 
     //create inventory
@@ -212,6 +212,7 @@ TopDownGame.Game.prototype = {
         var sprite = this.inventory[i].name.toString().toLowerCase();
         // add the sprite
         var invFish = this.game.add.sprite(350, 10*i, sprite);
+        invFish.scale.setTo(.5,.5);
         invFish.fixedToCamera = true
       }
   }
