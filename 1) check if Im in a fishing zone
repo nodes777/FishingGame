@@ -1,0 +1,9 @@
+1) check if Im in a fishing zone
+2) get a fish
+3) start mini game -passing fish object
+4) MiniGame- retur true and fish object to start new Game
+5) init runs, create runs
+
+init trys to display fish and it runs, but it doesn't display the sprite and I don't know why
+
+Create also moves around the player and flowers

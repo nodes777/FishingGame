@@ -11,6 +11,11 @@ TopDownGame.Game.prototype = {
             this.makeFlowersDance();
             console.log('caught a ' + fish.name);
             //show the fish on screen above player
+            /*
+             Why isn't this.displayFish running? It has all the necessary info,
+              console.log() is running within this.displayFish
+              But sprites aren't showing up on screen
+            */
             this.displayFish(fish);
             //add a copy of the fish to player's inventory
             var fishCopy = new this.Fish(fish.name, fish.size, fish.price);
@@ -30,7 +35,7 @@ TopDownGame.Game.prototype = {
         this.blockedLayer = this.map.createLayer('blockedLayer');
         //console.log(this.blockedLayer);
         //console.log(this.blockedLayer._results);
-        console.log(fishJSON);
+        //console.log(fishJSON);
 
         //create yellow flowers group
         this.yellowFlowers = this.game.add.group();
@@ -68,7 +73,6 @@ TopDownGame.Game.prototype = {
         this.timeOfDay = this.getTimeOfDay(this.hour);
         //for testing only
         this.timeOfDay = "day";
-        console.log(this.timeOfDay);
 
         //create inventory
         this.inventory = [];
@@ -88,6 +92,9 @@ TopDownGame.Game.prototype = {
         this.spacebar = this.game.input.keyboard.addKey(32);
 
         this.spacebar.onDown.add(this.fishCheck, this);
+
+        //this.displayFish(fishJSON.zone.beachfront.time.day.fish[1]);
+
 
     },
     createFishingTiles: function(obj) {
@@ -164,7 +171,7 @@ TopDownGame.Game.prototype = {
         text.fixedToCamera = true;
     },
     getTimeOfDay: function(hour) {
-        console.log(hour);
+        //console.log(hour);
         if (hour < 5) {
             return "night";
         } else if (hour >= 5 && hour < 11) {
@@ -197,16 +204,21 @@ TopDownGame.Game.prototype = {
         return fishJSON.zone[zone].time[timeOfDay].fish[1];
     },
     displayFish: function(fish) {
+        console.log("within displayFish: "+fish);
         var sprite = fish.name.toString().toLowerCase();
-        this.fish = this.game.add.sprite(this.player.x + 8, this.player.y - 16, sprite);
-        this.fish.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
+        this.butter = this.game.add.sprite(100, 100, 'player');
 
-        this.fish.animations.play('wiggle', 8, false, true);
+        this.fishAboveHead = this.game.add.sprite(this.player.x + 8, this.player.y - 16, sprite);
+        this.fishAboveHead.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
+
+        this.fishAboveHead.animations.play('wiggle', 8, false, true);
+
+        console.log(this.fishAboveHead);
 
     },
     addFishToInventory: function(fish) {
         this.inventory.push(fish);
-        console.log(this.inventory);
+        console.log("In your inventory: "+JSON.stringify(this.inventory));
         this.updateInventoryDisplay();
     },
     Fish: function(name, size, value) {
