@@ -1,0 +1,35 @@
+Fishing Game
+==========================
+
+A phaser game built around my fascination of fish and collecting.
+
+TO DOs
+==================
+* 
+
+ATTRIBUTIONS
+==================
+
+* [Samme](http://www.html5gamedevs.com/profile/22815-samme/) - Solved the issue of getting 2 game states to run
+
+
+FRAMEWORKS AND LIBRARIES
+========================
+
+* [Tiled](http://www.mapeditor.org/)
+
+BUGS
+==================
+
+* 
+
+DEVELOPMENT
+===========
+
+The game is 100% client side javascript, html and css. It should run when served up by any web server.
+
+License
+=======
+
+[MIT](http://en.wikipedia.org/wiki/MIT_License) license.
+

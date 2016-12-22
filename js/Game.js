@@ -155,7 +155,7 @@ TopDownGame.Game.prototype = {
             //if the center of the player is in range
             console.debug()
             if (this.fishingZones[x].contains(this.player.centerX, this.player.centerY)) {
-                console.log('fishing ' + this.fishingZones[x].name);
+                //console.log('fishing ' + this.fishingZones[x].name);
                 //get the fish to be caught from zone and time of day
                 var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
 
@@ -220,7 +220,7 @@ TopDownGame.Game.prototype = {
     getFish: function(zone, timeOfDay) {
         //zone and timeOfDay are working as a way to get into the object
         zone = zone.toLowerCase();
-        console.log(TopDownGame.fishJSON.zone[zone].time[timeOfDay]);
+        //console.log(TopDownGame.fishJSON.zone[zone].time[timeOfDay]);
         return TopDownGame.fishJSON.zone[zone].time[timeOfDay].fish[1];
     },
     displayFish: function(fish) {
