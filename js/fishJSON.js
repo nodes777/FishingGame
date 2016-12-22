@@ -1,4 +1,6 @@
-var fishJSON = {
+var TopDownGame = TopDownGame || {};
+
+TopDownGame.fishJSON = {
     "zone": {
         "beachfront": {
             "time": {
