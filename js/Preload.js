@@ -27,6 +27,9 @@ TopDownGame.Preload.prototype = {
     this.load.spritesheet('panfish', 'assets/images/fish/lakefront/Panfish.png', 32, 32);
     this.load.spritesheet('minnow', 'assets/images/fish/riverfront/Minnow.png', 32, 32);
     this.load.spritesheet('sauger', 'assets/images/fish/riverfront/Sauger.png', 32, 32);
+
+    this.load.spritesheet('hook', 'assets/images/hook.png', 32, 32);
+    this.load.spritesheet('fishmouth', 'assets/images/fishmouth.png', 32, 32);
   },
   create: function() {
     this.state.start('Game');
