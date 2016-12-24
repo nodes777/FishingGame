@@ -14,7 +14,6 @@ TopDownGame.miniGame.prototype = {
   },
   create: function(fishOnLine) {
     var caughtFish = true;
-    console.log(this);
 
     this.hook = this.game.add.sprite(100, 300, 'hook');
 
@@ -27,7 +26,7 @@ TopDownGame.miniGame.prototype = {
     this.spacebar = this.game.input.keyboard.addKey(32);
 
     this.fishMouth = this.game.add.sprite(this.world.width-100, this.game.rnd.integerInRange(100, 300), 'fishMouth');
-    console.log(this.fishMouth)
+
     this.fishMouth.animations.add('nom', [0,1,2,3,4,5], 10, true);
     this.fishMouth.animations.play('nom');
 
@@ -38,7 +37,7 @@ TopDownGame.miniGame.prototype = {
   update: function() {
 
         //collisions
-        this.game.physics.arcade.collide(this.hook, this.screenWall);
+        this.game.physics.arcade.overlap(this.hook, this.fishMouth, this.caughtFish, null, this);
 
 
         //hook movement
@@ -58,11 +57,6 @@ TopDownGame.miniGame.prototype = {
             this.hook.animations.stop();
         }
 
-    /*
-    if(this.hook.x >Phaser.Camera.width-100){
-      this.state.start('Game', false, false, caughtFish, this.fishOnLine);
-    }
-    */
     },
     render: function() {
         var debug = this.game.debug;
@@ -72,8 +66,17 @@ TopDownGame.miniGame.prototype = {
     },
     didntCatchFish: function(){
       console.log("didnt catch fish \n")
-      this.fishMouth.destroy();
+      this.fishMouth.kill();
       caughtFish = false;
-      this.state.start('Game', true, false, caughtFish, this.fishOnLine)
-    }
+      this.state.start('Game', false, false, caughtFish, this.fishOnLine)
+    },
+    caughtFish: function(){
+      console.log('caught the fish! \n')
+      //shake(intensity, duration, force, direction, shakeBounds) → {boolean}
+      this.game.camera.shake(0.05, 500);
+      this.hook.kill();
+      this.fishMouth.kill();
+      caughtFish = true;
+      this.state.start('Game', false, false, caughtFish, this.fishOnLine)
+    },
 };

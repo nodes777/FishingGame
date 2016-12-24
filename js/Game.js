@@ -220,7 +220,7 @@ TopDownGame.Game.prototype = {
     getFish: function(zone, timeOfDay) {
         //zone and timeOfDay are working as a way to get into the object
         zone = zone.toLowerCase();
-        //console.log(TopDownGame.fishJSON.zone[zone].time[timeOfDay]);
+        console.log(TopDownGame.fishJSON.zone[zone].time[timeOfDay]);
         return TopDownGame.fishJSON.zone[zone].time[timeOfDay].fish[1];
     },
     displayFish: function(fish) {
