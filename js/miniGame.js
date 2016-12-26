@@ -6,16 +6,14 @@ TopDownGame.miniGame.prototype = {
   },
   preload: function() {
     //show loading screen
-    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
-    this.preloadBar.anchor.setTo(0.5);
-
-    this.load.setPreloadSprite(this.preloadBar);
+    //this.game.camera.focusOnXY(this.player.x, this.player.y);
 
   },
   create: function(fishOnLine) {
     var caughtFish = true;
 
     this.hook = this.game.add.sprite(100, 300, 'hook');
+    this.game.camera.follow(this.hook);
 
     this.game.physics.arcade.enable(this.hook);
     this.hook.body.collideWorldBounds = false;
@@ -38,7 +36,6 @@ TopDownGame.miniGame.prototype = {
 
         //collisions
         this.game.physics.arcade.overlap(this.hook, this.fishMouth, this.caughtFish, null, this);
-
 
         //hook movement
         this.hook.body.velocity.y = 0;
@@ -67,6 +64,7 @@ TopDownGame.miniGame.prototype = {
     didntCatchFish: function(){
       console.log("didnt catch fish \n")
       this.fishMouth.kill();
+      this.hook.kill();
       caughtFish = false;
       this.state.start('Game', false, false, caughtFish, this.fishOnLine)
     },
@@ -76,7 +74,11 @@ TopDownGame.miniGame.prototype = {
       this.game.camera.shake(0.05, 500);
       this.hook.kill();
       this.fishMouth.kill();
+      this.game.time.events.add(Phaser.Timer.SECOND * .5, this.startGameState, this);
+
+    },
+    startGameState: function () {
       caughtFish = true;
       this.state.start('Game', false, false, caughtFish, this.fishOnLine)
-    },
+    }
 };

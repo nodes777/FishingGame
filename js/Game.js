@@ -27,8 +27,6 @@ TopDownGame.Game.prototype = {
         this.didFirstInit = true;
     },
     create: function() {
-        // to help see overlapping/duplicate objects:
-        // this.world.alpha = 0.5;
 
         if (!this.didFirstCreate) {
             this.map = this.game.add.tilemap('beach');
@@ -159,6 +157,9 @@ TopDownGame.Game.prototype = {
                 //get the fish to be caught from zone and time of day
                 var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
 
+                //stop the player if he was moving
+                this.player.body.velocity.y = 0;
+                this.player.body.velocity.x = 0;
                 //start the mini-game
                 this.chanceToCatch(fish);
             }
