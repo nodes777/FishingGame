@@ -96,8 +96,6 @@ TopDownGame.Game.prototype = {
 
         this.spacebar.onDown.add(this.fishCheck, this);
 
-        //this.displayFish(TopDownGame.fishJSON.zone.beachfront.time.day.fish[1]);
-
         this.didFirstCreate = true;
 
     },
@@ -138,11 +136,16 @@ TopDownGame.Game.prototype = {
     render: function() {
         var debug = this.game.debug;
 
-        debug.pixel(this.player.centerX, this.player.centerY, "yellow");
+        debug.pixel(this.player.x, this.player.y, "yellow");
 
         for (var zone of this.fishingZones) {
             debug.geom(zone, "aqua", false);
         }
+
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+
+
+        this.game.debug.spriteCoords(this.player, 32, 128);
 
         if (this.fishAboveHead) {
             debug.spriteBounds(this.fishAboveHead, "yellow", false);
@@ -208,15 +211,7 @@ TopDownGame.Game.prototype = {
         this.purpleFlower.animations.play('dance');
     },
     chanceToCatch: function(fishOnLine) {
-        /*
-        var num = this.game.rnd.integerInRange(0, 1);
-        if(num == 0){
-          return true;
-        } else {
-          return false;
-        }
-        */
-        this.state.start('miniGame', false, false, fishOnLine);
+        this.state.start('miniGame', false, false, fishOnLine, this.player);
     },
     getFish: function(zone, timeOfDay) {
         //zone and timeOfDay are working as a way to get into the object
@@ -230,10 +225,7 @@ TopDownGame.Game.prototype = {
 
         this.fishAboveHead = this.game.add.sprite(this.player.x + 8, this.player.y - 16, sprite);
         this.fishAboveHead.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
-
         this.fishAboveHead.animations.play('wiggle', 8, false, true);
-
-        console.log(this.fishAboveHead);
 
     },
     addFishToInventory: function(fish) {

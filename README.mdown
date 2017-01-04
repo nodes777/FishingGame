@@ -3,9 +3,20 @@ Fishing Game
 
 A phaser game built around my fascination of fish and collecting.
 
-TO DOs
+BIG TO DOs
 ==================
-* 
+* Improve Map
+* Add fish
+* Manage Inventory
+* Add fish mouth position variation depending on fish to be caught
+** adjust data structure
+** adjust pass in value
+
+Little TO DOs
+==================
+* Pass in player position to miniGame State, so camera focuses on that
+* Add exponetial velocity increase to hook in minigame
+
 
 ATTRIBUTIONS
 ==================

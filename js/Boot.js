@@ -17,8 +17,8 @@ TopDownGame.Boot.prototype = {
 
     this.scale.setGameSize(400,400);
     //have the game centered horizontally
-    //this.scale.pageAlignHorizontally = true;
-    //this.scale.pageAlignVertically = true;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
 
     //physics system
     this.game.physics.startSystem(Phaser.Physics.ARCADE);

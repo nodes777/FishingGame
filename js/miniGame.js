@@ -1,19 +1,20 @@
 TopDownGame.miniGame = function(){};
 
 TopDownGame.miniGame.prototype = {
-  init: function(fishOnLine){
+  init: function(fishOnLine, player){
     this.fishOnLine = fishOnLine;
+    this.player = player;
   },
   preload: function() {
     //show loading screen
-    //this.game.camera.focusOnXY(this.player.x, this.player.y);
+    this.game.camera.focusOnXY(this.player.x, this.player.y);
 
   },
   create: function(fishOnLine) {
     var caughtFish = true;
 
-    this.hook = this.game.add.sprite(100, 300, 'hook');
-    this.game.camera.follow(this.hook);
+    this.hook = this.game.add.sprite(this.player.x, this.player.y, 'hook');
+    this.game.camera.focusOnXY(this.hook.x, this.hook.y);
 
     this.game.physics.arcade.enable(this.hook);
     this.hook.body.collideWorldBounds = false;
@@ -23,7 +24,7 @@ TopDownGame.miniGame.prototype = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.spacebar = this.game.input.keyboard.addKey(32);
 
-    this.fishMouth = this.game.add.sprite(this.world.width-100, this.game.rnd.integerInRange(100, 300), 'fishMouth');
+    this.fishMouth = this.game.add.sprite(this.camera.width-32, this.game.rnd.integerInRange(100, 300), 'fishMouth');
 
     this.fishMouth.animations.add('nom', [0,1,2,3,4,5], 10, true);
     this.fishMouth.animations.play('nom');
