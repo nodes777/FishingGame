@@ -227,7 +227,6 @@ TopDownGame.Game.prototype = {
     displayFish: function(fish) {
         console.log("within displayFish: "+fish);
         var sprite = fish.name.toString().toLowerCase();
-        this.butter = this.game.add.sprite(100, 100, 'player');
 
         this.fishAboveHead = this.game.add.sprite(this.player.x + 8, this.player.y - 16, sprite);
         this.fishAboveHead.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
