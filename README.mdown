@@ -14,7 +14,6 @@ BIG TO DOs
 
 Little TO DOs
 ==================
-* Pass in player position to miniGame State, so camera focuses on that
 * Add exponetial velocity increase to hook in minigame
 
 
@@ -28,6 +27,7 @@ FRAMEWORKS AND LIBRARIES
 ========================
 
 * [Tiled](http://www.mapeditor.org/)
+* [Phaser](http://phaser.io/)
 
 BUGS
 ==================
@@ -37,7 +37,7 @@ BUGS
 DEVELOPMENT
 ===========
 
-The game is 100% client side javascript, html and css. It should run when served up by any web server.
+The game is client side javascript, html and css. It should run when served up by any web server.
 
 License
 =======

@@ -126,4 +126,4 @@ TopDownGame.fishJSON = {
             }
         }
     }
-}
+};

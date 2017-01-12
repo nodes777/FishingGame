@@ -142,10 +142,10 @@ TopDownGame.Game.prototype = {
             debug.geom(zone, "aqua", false);
         }
 
-        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+        //this.game.debug.cameraInfo(this.game.camera, 32, 32);
 
 
-        this.game.debug.spriteCoords(this.player, 32, 128);
+        //this.game.debug.spriteCoords(this.player, 32, 128);
 
         if (this.fishAboveHead) {
             debug.spriteBounds(this.fishAboveHead, "yellow", false);
@@ -154,7 +154,7 @@ TopDownGame.Game.prototype = {
     fishCheck: function() {
         for (var x = 0; x < this.fishingZones.length; x++) {
             //if the center of the player is in range
-            console.debug()
+            console.debug();
             if (this.fishingZones[x].contains(this.player.centerX, this.player.centerY)) {
                 //console.log('fishing ' + this.fishingZones[x].name);
                 //get the fish to be caught from zone and time of day
@@ -175,10 +175,10 @@ TopDownGame.Game.prototype = {
         return hour;
     },
     getTimeText: function(hour) {
-        var meridiem = "am"
+        var meridiem = "am";
         if (hour > 12) {
             hour = hour - 12;
-            meridiem = "pm"
+            meridiem = "pm";
         }
         hour = hour + meridiem;
 
@@ -207,7 +207,7 @@ TopDownGame.Game.prototype = {
         }
     },
     makeFlowersDance: function() {
-        this.yellowFlowers.getRandom().animations.play('dance')
+        this.yellowFlowers.getRandom().animations.play('dance');
         this.purpleFlower.animations.play('dance');
     },
     chanceToCatch: function(fishOnLine) {
@@ -245,8 +245,8 @@ TopDownGame.Game.prototype = {
             var sprite = this.inventory[i].name.toString().toLowerCase();
             // add the sprite
             var invFish = this.game.add.sprite(350, 10 * i, sprite);
-            invFish.scale.setTo(.5, .5);
-            invFish.fixedToCamera = true
+            invFish.scale.setTo(0.5, 0.5);
+            invFish.fixedToCamera = true;
         }
     }
-}
+};

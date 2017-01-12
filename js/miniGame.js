@@ -6,16 +6,17 @@ TopDownGame.miniGame.prototype = {
     this.player = player;
   },
   preload: function() {
-    //show loading screen
+
     this.game.camera.focusOnXY(this.player.x, this.player.y);
 
   },
   create: function(fishOnLine) {
     var caughtFish = true;
-    var fishMounthX = this.camera.width-32 + this.camera.x;
+    //Fish mouth's x position changes based on the camera position, this solves it
+    //(CameraWidth + size of hook Sprite + camera position)
+    var fishMouthX = this.camera.width - 32 + this.camera.x;
 
     this.hook = this.game.add.sprite(this.player.x, this.player.y, 'hook');
-    //this.game.camera.focusOnXY(this.hook.x, this.hook.y);
 
     this.game.physics.arcade.enable(this.hook);
     this.hook.body.collideWorldBounds = false;
@@ -25,7 +26,7 @@ TopDownGame.miniGame.prototype = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.spacebar = this.game.input.keyboard.addKey(32);
 
-    this.fishMouth = this.game.add.sprite(fishMounthX, this.game.rnd.integerInRange(100, 300), 'fishMouth');
+    this.fishMouth = this.game.add.sprite(fishMouthX, this.game.rnd.integerInRange(100, 300), 'fishMouth');
 
     this.fishMouth.animations.add('nom', [0,1,2,3,4,5], 10, true);
     this.fishMouth.animations.play('nom');
@@ -64,23 +65,23 @@ TopDownGame.miniGame.prototype = {
 
     },
     didntCatchFish: function(){
-      console.log("didnt catch fish \n")
+      console.log("didnt catch fish \n");
       this.fishMouth.kill();
       this.hook.kill();
       caughtFish = false;
-      this.state.start('Game', false, false, caughtFish, this.fishOnLine)
+      this.state.start('Game', false, false, caughtFish, this.fishOnLine);
     },
     caughtFish: function(){
-      console.log('caught the fish! \n')
+      console.log('caught the fish! \n');
       //shake(intensity, duration, force, direction, shakeBounds) → {boolean}
       this.game.camera.shake(0.05, 500);
       this.hook.kill();
       this.fishMouth.kill();
-      this.game.time.events.add(Phaser.Timer.SECOND * .5, this.startGameState, this);
+      this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.startGameState, this);
 
     },
     startGameState: function () {
       caughtFish = true;
-      this.state.start('Game', false, false, caughtFish, this.fishOnLine)
+      this.state.start('Game', false, false, caughtFish, this.fishOnLine);
     }
 };
