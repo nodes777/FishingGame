@@ -9,12 +9,16 @@ BIG TO DOs
 * Add fish
 * Manage Inventory
 * Add fish mouth position variation depending on fish to be caught
-** adjust data structure
-** adjust pass in value
+	** adjust data structure
+	** adjust pass in value
 
 Little TO DOs
 ==================
-* Add exponetial velocity increase to hook in minigame
+* Add rarity to fish
+* Add fish chosen by rarity
+* Fade the background scene when starting miniGame
+* Add short effect to hook and mouth spawn
+* Add short delay to display fish
 
 
 ATTRIBUTIONS
@@ -28,12 +32,13 @@ FRAMEWORKS AND LIBRARIES
 
 * [Tiled](http://www.mapeditor.org/)
 * [Phaser](http://phaser.io/)
+* [Piskel](http://piskelapp.com/)
 
 BUGS
 ==================
 
-* 
-
+* Sometimes the screen comes back from the mini-game and is off by a few pixels, ie the inventory and time are covered up
+* Meridium at 12pm reads as 12am
 DEVELOPMENT
 ===========
 

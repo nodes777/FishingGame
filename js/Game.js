@@ -47,17 +47,17 @@ TopDownGame.Game.prototype = {
                 this.yellowFlowers.create(this.game.rnd.integerInRange(0, 400), this.game.rnd.integerInRange(100, 300), 'yellowFlower', 0);
             }
 
-            this.yellowFlowers.callAll('scale.setTo', 'scale', .5, .5);
+            this.yellowFlowers.callAll('scale.setTo', 'scale', 0.5, 0.5);
             this.yellowFlowers.callAll('animations.add', 'animations', 'dance', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, false);
 
             //create purple flower sprite
             this.purpleFlower = this.game.add.sprite(150, 240, 'purpleFlower');
             this.purpleFlower.animations.add('dance', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, false);
-            this.purpleFlower.scale.setTo(.5, .5)
+            this.purpleFlower.scale.setTo(0.5, 0.5);
 
             //create fishing group
             this.fishingZones = [];
-            for (var i = 0; i < this.map.objects.objectsLayer.length; i++) {
+            for ( i = 0; i < this.map.objects.objectsLayer.length; i++) {
                 var zone = this.createFishingTiles(this.map.objects.objectsLayer[i]);
                 this.fishingZones.push(zone);
             }
@@ -81,8 +81,17 @@ TopDownGame.Game.prototype = {
 
             //create player
             this.player = this.game.add.sprite(100, 300, 'player');
-            this.player.animations.add('right', [0, 1, 2, 3], 10, true);
-            this.player.animations.add('left', [4, 5, 6, 7], 10, true);
+            this.player.animations.add('right', [0, 1, 2, 3], 10, false);
+            this.player.animations.add('left', [4, 5, 6, 7], 10, false);
+            this.player.facing = "right";
+
+            this.player.animations.add('castRight', [8, 9, 10, 11,12,13,14,15,16,17], 30, false);
+            this.player.animations.currentAnim.onComplete.add(this.fishCheck, this);
+            this.player.animations.add('castLeft', [18,19,20,21,22,23,24,25,26,27], 30, false);
+            //why does this only apply to the left casting animations??
+            this.player.animations.currentAnim.onComplete.add(this.fishCheck, this);
+
+            //yourSprite.events.onAnimationComplete(startAnimationB, this);
             this.game.physics.arcade.enable(this.player);
             this.player.body.collideWorldBounds = true;
         }
@@ -94,7 +103,7 @@ TopDownGame.Game.prototype = {
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.spacebar = this.game.input.keyboard.addKey(32);
 
-        this.spacebar.onDown.add(this.fishCheck, this);
+        this.spacebar.onDown.add(this.cast, this);
 
         this.didFirstCreate = true;
 
@@ -115,10 +124,10 @@ TopDownGame.Game.prototype = {
 
         if (this.cursors.up.isDown) {
             this.player.body.velocity.y -= 50;
-            this.player.facing = "up";
+            //this.player.facing = "up";
         } else if (this.cursors.down.isDown) {
             this.player.body.velocity.y += 50;
-            this.player.facing = "down";
+            //this.player.facing = "down";
         }
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x -= 50;
@@ -128,8 +137,9 @@ TopDownGame.Game.prototype = {
             this.player.body.velocity.x += 50;
             this.player.animations.play('right');
             this.player.facing = "right";
-        } else {
-            this.player.animations.stop();
+        }
+        else {
+            //this.player.animations.stop();
         }
 
     },
@@ -151,7 +161,23 @@ TopDownGame.Game.prototype = {
             debug.spriteBounds(this.fishAboveHead, "yellow", false);
         }
     },
+    cast: function(){
+        console.log("casting");
+        if(this.player.facing === "right"){
+          this.player.animations.play('castRight');
+        }
+        if(this.player.facing === "left"){
+          this.player.animations.play('castLeft');
+        }
+        //this.fishCheck();
+    },
     fishCheck: function() {
+        if(this.player.facing === "right"){
+          this.player.animations.play('right');
+        }
+        if(this.player.facing === "left"){
+          this.player.animations.play('left');
+        }
         for (var x = 0; x < this.fishingZones.length; x++) {
             //if the center of the player is in range
             console.debug();
@@ -163,6 +189,9 @@ TopDownGame.Game.prototype = {
                 //stop the player if he was moving
                 this.player.body.velocity.y = 0;
                 this.player.body.velocity.x = 0;
+                this.cursors.up.isDown = false;
+                this.cursors.down.isDown = false;
+                this.player.animations.stop();
                 //start the mini-game
                 this.chanceToCatch(fish);
             }
@@ -223,7 +252,7 @@ TopDownGame.Game.prototype = {
         console.log("within displayFish: "+fish);
         var sprite = fish.name.toString().toLowerCase();
 
-        this.fishAboveHead = this.game.add.sprite(this.player.x + 8, this.player.y - 16, sprite);
+        this.fishAboveHead = this.game.add.sprite(this.player.x, this.player.y - 32, sprite);
         this.fishAboveHead.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 8, true);
         this.fishAboveHead.animations.play('wiggle', 8, false, true);
 

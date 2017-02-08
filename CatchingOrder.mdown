@@ -1,0 +1,16 @@
+Catching Order
+==========================
+
+1) Press spacebar in zone
+2) Fish is determined by:
+	* Zone
+	* Time of Day
+	* Rarity
+3) Minigame is launched
+4) Version of minigame is determined by the fish being caught:
+	* Static
+	* upDown
+	* circular?
+	* repeat?
+5) fish is lost if hook goes out of bounds
+6) fish is caught on collision of hook and mouth

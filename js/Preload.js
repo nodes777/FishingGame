@@ -17,7 +17,7 @@ TopDownGame.Preload.prototype = {
 
 
     //this.load.image('player', 'assets/images/guy.png');
-    this.load.spritesheet('player', 'assets/images/guyWalking.png', 32, 32);
+    this.load.spritesheet('player', 'assets/images/guySprite.png', 32, 32);
     this.load.spritesheet('yellowFlower', 'assets/images/yellowFlower.png', 32, 32);
     this.load.spritesheet('purpleFlower', 'assets/images/purpleFlower.png', 32, 32);
     this.load.spritesheet('ray', 'assets/images/fish/beachfront/ray.png', 16, 16);
@@ -30,6 +30,7 @@ TopDownGame.Preload.prototype = {
 
     this.load.spritesheet('hook', 'assets/images/hook.png', 32, 32);
     this.load.spritesheet('fishMouth', 'assets/images/fishmouth.png', 32, 32);
+    this.load.spritesheet('sparkle', 'assets/images/sparkle.png', 8, 8);
   },
   create: function() {
     this.state.start('Game');
