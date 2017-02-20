@@ -4,6 +4,7 @@ TopDownGame.miniGame.prototype = {
   init: function(fishOnLine, player){
     this.fishOnLine = fishOnLine;
     this.player = player;
+    this.gameType = fishOnLine.catchType;
   },
   preload: function() {
 
@@ -12,6 +13,7 @@ TopDownGame.miniGame.prototype = {
 
   },
   create: function(fishOnLine) {
+    console.log(this.gameType);
     //Fish mouth's x position changes based on the camera position, this solves it
     //(CameraWidth + size of hook Sprite + camera position)
     var fishMouthX = this.camera.width - 32 + this.camera.x;
@@ -34,6 +36,7 @@ TopDownGame.miniGame.prototype = {
     this.game.physics.arcade.enable(this.fishMouth);
 
     this.makeEmitter();
+    this.startDownTween();
 
   },
   update: function() {
@@ -64,6 +67,21 @@ TopDownGame.miniGame.prototype = {
 
         debug.pixel(this.hook.centerX, this.hook.centerY, "yellow");
 
+    },
+    startDownTween: function() {
+
+    var down = this.game.add.tween(this.fishMouth);
+
+    down.to({ y: this.game.world.height-this.fishMouth.height }, 1000 + Math.random() * 3000);
+    down.onComplete.add(this.startUpTween, this);
+    down.start();
+    },
+    startUpTween: function() {
+    var up = this.game.add.tween(this.fishMouth);
+
+    up.to({ y: 0+this.fishMouth.height }, 1000 + Math.random() * 3000);
+    up.onComplete.add(this.startDownTween, this);
+    up.start();
     },
     makeEmitter: function(){
     this.emitter = this.game.add.emitter(this.hook.x, this.hook.y, 50);
