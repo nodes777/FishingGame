@@ -10,14 +10,16 @@ TopDownGame.Game.prototype = {
     init: function(caughtFish, fishOnLine) {
 
         if (caughtFish === true) {
+
             var fish = fishOnLine;
             this.makeFlowersDance();
             console.log('caught a ' + fish.name);
             //show the fish on screen above player
-            this.displayFish(fish);
+            this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.displayFish, this, fish);
             //add a copy of the fish to player's inventory
             var fishCopy = new this.Fish(fish.name, fish.size, fish.price);
             this.addFishToInventory(fishCopy);
+
         } else if (caughtFish === false){
             console.log('no fish, sorry man');
         } else {
@@ -37,9 +39,6 @@ TopDownGame.Game.prototype = {
             //create layers
             this.backgroundlayer = this.map.createLayer('background');
             this.blockedLayer = this.map.createLayer('blockedLayer');
-            //console.log(this.blockedLayer);
-            //console.log(this.blockedLayer._results);
-            //console.log(TopDownGame.fishJSON);
 
             //create yellow flowers group
             this.yellowFlowers = this.game.add.group();

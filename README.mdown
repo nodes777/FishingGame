@@ -15,7 +15,7 @@ Little TO DOs
 * Add fish chosen by rarity
 * Fade the background scene when starting miniGame
 * Add short effect to hook and mouth spawn
-* Add short delay to display fish
+
 
 
 Upgrade Ideas/Buffs and DeBuffs
