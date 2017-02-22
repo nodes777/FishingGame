@@ -8,9 +8,6 @@ BIG TO DOs
 * Improve Map
 * Add fish
 * Manage Inventory
-* Add fish mouth position variation depending on fish to be caught
-	** adjust data structure
-	** adjust pass in value
 
 Little TO DOs
 ==================
@@ -20,6 +17,12 @@ Little TO DOs
 * Add short effect to hook and mouth spawn
 * Add short delay to display fish
 
+
+Upgrade Ideas/Buffs and DeBuffs
+==================
+* Slow hook speed
+* Try again if you miss
+* Fish Head Bigger
 
 ATTRIBUTIONS
 ==================

@@ -36,7 +36,9 @@ TopDownGame.miniGame.prototype = {
     this.game.physics.arcade.enable(this.fishMouth);
 
     this.makeEmitter();
-    this.startDownTween();
+    if(this.gameType === 'upDown'){
+      this.startDownUpTween();
+    }
 
   },
   update: function() {
@@ -68,20 +70,19 @@ TopDownGame.miniGame.prototype = {
         debug.pixel(this.hook.centerX, this.hook.centerY, "yellow");
 
     },
-    startDownTween: function() {
+    startDownUpTween: function() {
 
-    var down = this.game.add.tween(this.fishMouth);
+    var downUp = this.game.add.tween(this.fishMouth);
+    var randomSpeed = 1000 + Math.random() * 4000; //Link speed to rarity here
 
-    down.to({ y: this.game.world.height-this.fishMouth.height }, 1000 + Math.random() * 3000);
-    down.onComplete.add(this.startUpTween, this);
-    down.start();
-    },
-    startUpTween: function() {
-    var up = this.game.add.tween(this.fishMouth);
-
-    up.to({ y: 0+this.fishMouth.height }, 1000 + Math.random() * 3000);
-    up.onComplete.add(this.startDownTween, this);
-    up.start();
+    //Tween to the bottom of the camera view
+    downUp.to({ y: this.camera.bounds.height-this.fishMouth.height }, randomSpeed)
+    //then back up to the top of the view
+    .to({ y: this.camera.y }, randomSpeed)
+    //repeat back down
+    .to({ y: this.camera.bounds.height-this.fishMouth.height }, randomSpeed)
+    .to({ y: this.camera.y }, randomSpeed);
+    downUp.start();
     },
     makeEmitter: function(){
     this.emitter = this.game.add.emitter(this.hook.x, this.hook.y, 50);

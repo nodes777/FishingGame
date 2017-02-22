@@ -96,6 +96,7 @@ TopDownGame.Game.prototype = {
             this.player.body.collideWorldBounds = true;
         }
 
+        this.game.camera.setPosition(this.player.x, this.player.y);
         //the camera will follow the player in the world
         this.game.camera.follow(this.player);
 
@@ -152,7 +153,7 @@ TopDownGame.Game.prototype = {
             debug.geom(zone, "aqua", false);
         }
 
-        //this.game.debug.cameraInfo(this.game.camera, 32, 32);
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
 
 
         //this.game.debug.spriteCoords(this.player, 32, 128);
