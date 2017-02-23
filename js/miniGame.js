@@ -114,11 +114,19 @@ TopDownGame.miniGame.prototype = {
       this.game.camera.shake(0.05, 500);
       this.hook.kill();
       this.fishMouth.kill();
-      this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.startGameState, this);
+      //When the camera finishes shaking start the main game state
+      this.game.camera.onShakeComplete.add(function(){
+        this.startGameState();
+      }, this);
+
+      //this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.startGameState, this);
 
     },
     startGameState: function () {
       caughtFish = true;
       this.state.start('Game', false, false, caughtFish, this.fishOnLine);
+    },
+    shake: function(){
+
     }
 };

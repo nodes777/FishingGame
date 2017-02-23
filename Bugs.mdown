@@ -1,0 +1,30 @@
+============
+	BUGS
+============
+
+~~Camera Shake Bug~~ FIXED
+======================
+
+Symptoms
+* Sometimes the screen comes back from the mini-game and the view is off by a few pixels
+* The inventory and time are partially off screen
+
+Steps to reproduce:
+* Successfully catch any fish
+* After 1-7 tries the main game camera should be off
+
+Ive Tried:
+* Setting the camera position on the player within the minigame after the shake
+* Setting the camera position on the player during the create phase of the main game
+
+[Image](http://imgur.com/a/2h0kP)
+
+FIX:
+Add the end of a successful catch minigame I have a signal for when the shake is complete. Once the shake is complete the main game starts again
+
+```
+ this.game.camera.onShakeComplete.add(function(){
+        this.startGameState();
+      }, this);
+```
+============================================
