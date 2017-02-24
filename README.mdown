@@ -14,7 +14,7 @@ Little TO DOs
 * Add rarity to fish
 * Add fish chosen by rarity
 * Fade the background scene when starting miniGame
-* Add short effect to hook and mouth spawn
+* Change state transition on ext inventory to player x and y
 
 
 

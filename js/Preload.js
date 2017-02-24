@@ -31,6 +31,8 @@ TopDownGame.Preload.prototype = {
     this.load.spritesheet('hook', 'assets/images/hook.png', 32, 32);
     this.load.spritesheet('fishMouth', 'assets/images/fishmouth.png', 32, 32);
     this.load.spritesheet('sparkle', 'assets/images/sparkle.png', 8, 8);
+
+    this.load.spritesheet('inventory', 'assets/images/inventory.png', 560, 397);
   },
   create: function() {
     this.state.start('Game');

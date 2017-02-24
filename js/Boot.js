@@ -22,7 +22,47 @@ TopDownGame.Boot.prototype = {
 
     //physics system
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    
-    this.state.start('Preload');
+    this.game.stateTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
+    this.game.stateTransition.configure({
+      duration: Phaser.Timer.SECOND * 0.8,
+      ease: Phaser.Easing.Exponential.InOut,
+      properties: {
+        alpha: 0,
+        scale: {
+          x: -1.4,
+          y: -1.4
+        }
+      }
+    });
+    this.game.stateTransition.to('Preload');
   }
 };
+/*
+//expand out
+ this.game.stateTransition.configure({
+     duration: Phaser.Timer.SECOND * 1.0,
+     ease: Phaser.Easing.Exponential.InOut,
+     properties: {
+         alpha: 0,
+         scale: {
+             x: 1.4,
+             y: 1.4
+         }
+     }
+ });
+ this.game.stateTransition.to('state1'); //....and then in a different state... 
+
+//shrink in
+ this.game.stateTransition.configure({
+     duration: Phaser.Timer.SECOND * 1.0,
+     ease: Phaser.Easing.Exponential.OutIn,
+     properties: {
+         alpha: 0,
+         scale: {
+             x: 0.4,
+             y: 0.4
+         }
+     }
+ });
+ this.game.stateTransition.to('state2');
+ */

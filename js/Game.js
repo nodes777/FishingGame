@@ -293,6 +293,6 @@ TopDownGame.Game.prototype = {
     },
     showInventory: function(){
         console.log("showing inventory...");
-        this.state.start('inventory', false, false, this.inventory, this.player);
+        this.game.stateTransition.to('inventory', false, false, this.inventory, this.player);
     }
 };
