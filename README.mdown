@@ -41,7 +41,7 @@ BUGS
 ==================
 
 * ~~Sometimes the screen comes back from the mini-game and is off by a few pixels, ie the inventory and time are covered up, screen shake messes game camera up~~
-* Meridium at 12pm reads as 12am
+* Meridium at 12pm reads as 12am, and 0am at midnight
 * Player will move in Y direction if keys are still held after casting. Current fix is to manually set keys to not down before launching minigame
 
 DEVELOPMENT
