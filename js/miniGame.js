@@ -13,7 +13,6 @@ TopDownGame.miniGame.prototype = {
 
   },
   create: function(fishOnLine) {
-    console.log(this.gameType);
     //Fish mouth's x position changes based on the camera position, this solves it
     //(CameraWidth + size of hook Sprite + camera position)
     var fishMouthX = this.camera.width - 32 + this.camera.x;
@@ -23,7 +22,7 @@ TopDownGame.miniGame.prototype = {
     this.game.physics.arcade.enable(this.hook);
     this.hook.body.collideWorldBounds = false;
     this.hook.checkWorldBounds = true;
-    this.hook.events.onOutOfBounds.add(this.didntCatchFish, this);
+     
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.spacebar = this.game.input.keyboard.addKey(32);
@@ -62,12 +61,14 @@ TopDownGame.miniGame.prototype = {
         } else {
             this.hook.animations.stop();
         }
-
+        if (this.hook.x > this.camera.view.width+this.game.camera.x){this.didntCatchFish();}
     },
     render: function() {
         var debug = this.game.debug;
 
-        debug.pixel(this.hook.centerX, this.hook.centerY, "yellow");
+        //debug.pixel(this.hook.centerX, this.hook.centerY, "yellow");
+        //this.game.debug.cameraInfo(this.game.camera, 32, 32);
+        //this.game.debug.spriteCoords(this.hook, 32, 128);
 
     },
     startDownUpTween: function() {
@@ -118,7 +119,6 @@ TopDownGame.miniGame.prototype = {
       this.game.camera.onShakeComplete.add(function(){
         this.startGameState();
       }, this);
-
       //this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.startGameState, this);
 
     },
@@ -126,7 +126,4 @@ TopDownGame.miniGame.prototype = {
       caughtFish = true;
       this.state.start('Game', false, false, caughtFish, this.fishOnLine);
     },
-    shake: function(){
-
-    }
 };

@@ -72,7 +72,7 @@ TopDownGame.Game.prototype = {
             this.getTimeText(this.hour);
             //Get Time of Day: Morning, Day or Night
             this.timeOfDay = this.getTimeOfDay(this.hour);
-            //for testing only
+            //FOR TESTING ONLY*****REMOVE******
             this.timeOfDay = "day";
 
             //create inventory
@@ -102,6 +102,9 @@ TopDownGame.Game.prototype = {
         //move player with cursor keys
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.spacebar = this.game.input.keyboard.addKey(32);
+        this.shiftKey = this.game.input.keyboard.addKey(16);
+        //Prevent arrow and space bar keys from working on the browser. IE scrolling around
+        this.game.input.keyboard.addKeyCapture([37, 38, 39, 40, 32]);
 
         this.spacebar.onDown.add(this.cast, this);
 
@@ -114,7 +117,6 @@ TopDownGame.Game.prototype = {
         return fishingTiles;
     },
     update: function() {
-
         //collisions
         this.game.physics.arcade.collide(this.player, this.blockedLayer);
 
@@ -138,8 +140,8 @@ TopDownGame.Game.prototype = {
             this.player.animations.play('right');
             this.player.facing = "right";
         }
-        else {
-            //this.player.animations.stop();
+        if (this.shiftKey.isDown) {
+            this.showInventory();
         }
 
     },
@@ -152,7 +154,7 @@ TopDownGame.Game.prototype = {
             debug.geom(zone, "aqua", false);
         }
 
-        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+        //this.game.debug.cameraInfo(this.game.camera, 32, 32);
 
 
         //this.game.debug.spriteCoords(this.player, 32, 128);
@@ -172,29 +174,33 @@ TopDownGame.Game.prototype = {
         //this.fishCheck();
     },
     fishCheck: function() {
-        if(this.player.facing === "right"){
-          this.player.animations.play('right');
-        }
-        if(this.player.facing === "left"){
-          this.player.animations.play('left');
-        }
-        for (var x = 0; x < this.fishingZones.length; x++) {
-            //if the center of the player is in range
-            console.debug();
-            if (this.fishingZones[x].contains(this.player.centerX, this.player.centerY)) {
-                //console.log('fishing ' + this.fishingZones[x].name);
-                //get the fish to be caught from zone and time of day
-                var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
-
-                //stop the player if he was moving
-                this.player.body.velocity.y = 0;
-                this.player.body.velocity.x = 0;
-                this.cursors.up.isDown = false;
-                this.cursors.down.isDown = false;
-                this.player.animations.stop();
-                //start the mini-game
-                this.chanceToCatch(fish);
+        if(this.inventoryHasRoom()){
+            if(this.player.facing === "right"){
+              this.player.animations.play('right');
             }
+            if(this.player.facing === "left"){
+              this.player.animations.play('left');
+            }
+            for (var x = 0; x < this.fishingZones.length; x++) {
+                //if the center of the player is in range
+                console.debug();
+                if (this.fishingZones[x].contains(this.player.centerX, this.player.centerY)) {
+                    //console.log('fishing ' + this.fishingZones[x].name);
+                    //get the fish to be caught from zone and time of day
+                    var fish = this.getFish(this.fishingZones[x].name, this.timeOfDay);
+
+                    //stop the player if he was moving
+                    this.player.body.velocity.y = 0;
+                    this.player.body.velocity.x = 0;
+                    this.cursors.up.isDown = false;
+                    this.cursors.down.isDown = false;
+                    this.player.animations.stop();
+                    //start the mini-game
+                    this.chanceToCatch(fish);
+                }
+            }
+        } else {
+            console.log("Inventory is full!");
         }
     },
     getTime: function() {
@@ -277,5 +283,16 @@ TopDownGame.Game.prototype = {
             invFish.scale.setTo(0.5, 0.5);
             invFish.fixedToCamera = true;
         }
+    },
+    inventoryHasRoom: function(){
+        if (this.inventory.length<9){
+            return true;
+        } else {
+            return false;
+        }
+    },
+    showInventory: function(){
+        console.log("showing inventory...");
+        //this.game.input.reset();
     }
 };

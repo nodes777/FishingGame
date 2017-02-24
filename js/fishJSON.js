@@ -9,7 +9,8 @@ TopDownGame.fishJSON = {
                         "name": "Mola Mola",
                         "size": 20,
                         "price": 1000,
-                        "catchType": ""
+                        "catchType": "",
+                        "rarity": 50
                     }, {
                         "name": "Ray",
                         "size": 11,
